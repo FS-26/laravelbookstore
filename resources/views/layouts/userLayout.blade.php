@@ -22,7 +22,7 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ route('view.home') }}">Home</a>
+                    <a class="nav-link {{ request()->routeIs('view.home') ? 'active' : '' }}" aria-current="page" href="{{ route('view.home') }}">Home</a>
                   </li>
 
                   @auth
@@ -43,10 +43,10 @@
                   @endauth
                   @guest
                      <li class="nav-item mx-lg-2">
-                    <a class="btn btn-outline-primary " href="{{ route('view.login') }}">Login</a>
+                    <a class="btn btn-outline-primary {{ request()->routeIs('view.login') ? 'active' : '' }} " href="{{ route('view.login') }}">Login</a>
                   </li> 
                   <li class="nav-item mx-lg-2">
-                    <a class="btn btn-outline-light " href="{{ route('view.register') }}">Register</a>
+                    <a class="btn btn-outline-light {{ request()->routeIs('view.register') ? 'active' : '' }}" href="{{ route('view.register') }}">Register</a>
                   </li>  
                   @endguest
                   

@@ -17,8 +17,8 @@ return new class extends Migration {
             $table->string('title', 255);
             $table->string('author', 50);
             $table->date('editionDate');
-            $table->text('picture');
-            $table->text('filePath');
+            $table->text('picture')->nullable();
+            $table->text('filePath')->nullable();
             $table->text('description')->nullable();
             $table->foreignId('user_id')->constrained();
             $table->timestamps();

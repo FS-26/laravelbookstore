@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\admin\BookController;
 use App\Http\Controllers\admin\Home;
 use App\Http\Controllers\Auth;
 use App\Http\Controllers\AuthController;
+
+;
 use App\Http\Controllers\Greeting;
 use Illuminate\Support\Facades\Route;
 
@@ -27,3 +30,6 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/admin', [Home::class, 'displayHome'])->name('view.admin.home');
+Route::prefix('admin')->group(function () {
+    Route::resource('/books', BookController::class);
+});
