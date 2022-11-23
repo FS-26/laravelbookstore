@@ -21,7 +21,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     <input type="text" class="form-control  @error('title') is-invalid @enderror" id="author"
-                        name="author" value="  {{ $book->author }} {{ old('author') }}">
+                        name="author" value="   {{ old('author', $book->author) }}">
                     <label for="author">Author</label>
                 </div>
                 <div class="form-floating mb-3">
@@ -37,7 +37,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     <input type="date" class="form-control @error('title') is-invalid @enderror" id="editionDate"
-                        name="editionDate" value="{{ $book->editionDate }} {{ old('editionDate') }}">
+                        name="editionDate" value="{{ old('editionDate', $book->editionDate) }}">
                     <label for="editionDate">Edition-Date</label>
                 </div>
                 <div class="mb-3">

@@ -3,7 +3,12 @@
 
 @section('content')
     <div class="bg-secondary rounded h-100 p-4">
-
+        @if (session('success'))
+            <x-alert type='success' :message="session('success')" />
+        @endif
+        @if (session('error'))
+            <x-alert type='danger' :message="session('error')" />
+        @endif
         <div class="card">
             <div class="card-header bg-light d-flex justify-content-between align-items-center">
                 <h3>Book List</h3>

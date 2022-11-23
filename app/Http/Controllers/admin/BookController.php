@@ -66,10 +66,10 @@ class BookController extends Controller
         $book = Book::Create($validated);
 
         if (isset($book)) {
-            return redirect()->route('books.index');
+            return redirect()->route('books.index')->with('success', 'Book Added Successfully.');
         }
 
-        return back()->withErrors(['error' => 'Book Insertion error']);
+        return back()->with('error', 'Book Insertion error');
 
     }
 
@@ -140,10 +140,10 @@ class BookController extends Controller
         }
 
         if ($oldBook->save()) {
-            return redirect()->route('books.index');
+            return redirect()->route('books.index')->with('success', 'Book edited successfully');
         }
 
-        return back()->withErrors(['error' => 'Book Updating error']);
+        return back()->with('error', 'Book Updating error');
     }
 
     /**
@@ -158,9 +158,9 @@ class BookController extends Controller
         $book = Book::find($id);
 
         if ($book->delete()) {
-            return redirect()->route('books.index');
+            return redirect()->route('books.index')->with('success', 'Book Deleted successfully');
         } else {
-            return back()->withErrors(['error' => 'Book Updating error']);
+            return back()->with('error', 'Book Updating error');
         }
     }
 }
