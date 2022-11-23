@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 use Illuminate\Http\Request;
@@ -47,21 +48,8 @@ class BookController extends Controller
         $validated['user_id'] = Auth::user()->id;
 
 
-        if ($request->hasFile('picture')) {
-            $file = $request->file('picture');
-            $fileName = 'book_' . time() . '.' . $file->getClientOriginalExtension();
-
-            $path = $request->file('picture')->storeAs('images/books', $fileName, 'public');
-            $validated['picture'] = 'storage/' . $path;
-        }
-
-
-        if ($request->hasFile('filePath')) {
-            $file = $request->file('filePath');
-            $fileName = $validated['title'] . '.' . $file->getClientOriginalExtension();
-            $filePath = $request->file('filePath')->storeAs('pdf/books', $fileName, 'public');
-            $validated['filePath'] = 'storage/' . $filePath;
-        }
+        $validated['picture'] = Helper::uploadFile($request, 'picture', 'book_' . time(), 'images/books');
+        $validated['filePath'] = Helper::uploadFile($request, 'filePath', $validated['title'] . time(), 'pdf/books');
 
         $book = Book::Create($validated);
 
@@ -122,22 +110,15 @@ class BookController extends Controller
         $oldBook->editionDate = $validated['editionDate'];
         $oldBook->user_id = Auth::user()->id;
 
-
         if ($request->hasFile('picture')) {
-            $file = $request->file('picture');
-            $fileName = 'book_' . time() . '.' . $file->getClientOriginalExtension();
-
-            $path = $request->file('picture')->storeAs('images/books', $fileName, 'public');
-            $oldBook->picture = 'storage/' . $path;
+        $oldBook->picture = Helper::uploadFile($request, 'picture', 'book_' . time(), 'images/books');
+           
         }
-
-
         if ($request->hasFile('filePath')) {
-            $file = $request->file('filePath');
-            $fileName = $validated['title'] . '.' . $file->getClientOriginalExtension();
-            $filePath = $request->file('filePath')->storeAs('pdf/books', $fileName, 'public');
-            $oldBook->filePath = 'storage/' . $filePath;
+        $oldBook->filePath = Helper::uploadFile($request, 'filePath', $validated['title'] . time(), 'pdf/books');
+           
         }
+
 
         if ($oldBook->save()) {
             return redirect()->route('books.index')->with('success', 'Book edited successfully');

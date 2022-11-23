@@ -51,12 +51,12 @@
                                         <a href="{{ route('books.edit', ['book' => $book->id]) }}"
                                             class="btn btn-sm btn-success mx-1 fs-5"> <i class="bx bx-pencil"></i></a>
 
-                                        <form class="d-inline" action="{{ route('books.destroy', ['book' => $book->id]) }}"
-                                            method="POST">
+                                        <form class="d-inline" id="book-{{ $book->id }}" method="POST"
+                                            action="{{ route('books.destroy', ['book' => $book->id]) }} ">
                                             @csrf
                                             @method('delete')
-                                            <button type="submit" class="btn btn-sm btn-danger mx-1"> <i
-                                                    class="bx bx-trash fs-5"></i>
+                                            <button type="button" onclick='handleDelete("book-{{ $book->id }}")'
+                                                class="btn btn-sm btn-danger mx-1"> <i class="bx bx-trash fs-5"></i>
                                             </button>
                                         </form>
                                     </td>
@@ -73,4 +73,14 @@
 
 
     </div>
+
+    <script>
+        function handleDelete(idform) {
+            let form = document.querySelector('#' + idform);
+            // console.log(form);
+            if (confirm('Etes vous sur de votre decision')) {
+                form.submit();
+            }
+        }
+    </script>
 @endsection
